@@ -1,0 +1,46 @@
+<div class="current-values-container">
+  <mat-card *ngIf="error != null" class = "ErrorCard">{{error}}</mat-card>
+  <div class="input-container">
+    <mat-form-field class="inputLine" >
+      <mat-label>Choose time period start date</mat-label>
+      <input matInput [matDatepicker]="startDatepicker" [min]="minDate" [max]="endDate" (dateChange)="startDate = $event.target.value">
+      <mat-datepicker-toggle matSuffix [for]="startDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatepicker [touchUi]="mobileQuery.matches"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="inputLine" >
+      <mat-label>Choose time period end date</mat-label>
+      <input matInput [matDatepicker]="endDatepicker" [min]="startDate" [max]="maxDate" (dateChange)="endDate = $event.target.value">
+      <mat-datepicker-toggle matSuffix [for]="endDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatepicker [touchUi]="mobileQuery.matches"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="inputLine">
+      <mat-label>Write currency code</mat-label>
+      <input matInput placeholder="Ex. USD" [value]="cur" (input)="cur = $event.target.value">
+    </mat-form-field>
+    <button class="inputLine" mat-flat-button color="primary" (click)="RefreshInfo()">Load</button>
+  </div>
+
+  <mat-expansion-panel class="date-container" *ngFor="let date_rate of date_rates">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{date_rate.date  | date:"longDate"}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <table mat-table [dataSource]="date_rate.rates">
+      <ng-container matColumnDef="Currency">
+        <mat-header-cell *matHeaderCellDef> Currency </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.currency}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Value">
+        <mat-header-cell *matHeaderCellDef> Value </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </table>
+
+  </mat-expansion-panel>
+
+</div>

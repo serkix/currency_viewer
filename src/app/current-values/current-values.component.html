@@ -1,0 +1,23 @@
+<div class="current-values-container">
+  <mat-card *ngIf="error != null" class = "ErrorCard">{{error}}</mat-card>
+  <div class="input-container">
+    <mat-form-field class="inputLine" >
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="Datepicker" [min]="minDate" [max]="maxDate" (dateChange)="date = $event.target.value">
+      <mat-datepicker-toggle matSuffix [for]="Datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #Datepicker [touchUi]="mobileQuery.matches"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="inputLine">
+      <mat-label>Write currency code</mat-label>
+      <input matInput placeholder="Ex. USD" [value]="cur" (input)="cur = $event.target.value">
+    </mat-form-field>
+    <button class="inputLine" mat-flat-button color="primary" (click)="RefreshInfo()">Load</button>
+  </div>
+
+
+  <mat-action-list class="data-container">
+    <button mat-list-item  class="data-line" *ngFor="let currency of rates" (click)="choose(currency.name)">
+      {{currency.name}} - {{currency.value | currency:currency.name:'':'2.4-4'}}
+    </button>
+  </mat-action-list>
+</div>

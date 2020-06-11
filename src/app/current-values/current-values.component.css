@@ -1,0 +1,30 @@
+.data-container {
+  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  justify-content: space-evenly;
+  background-color: #EDE7F6;
+}
+.data-line {
+  flex: auto;
+  margin: 10px;
+  max-width: 150px;
+  background-color: #D1C4E9;
+}
+.ErrorCard {
+  margin: 10px;
+  color: #B71C1C;
+  font-weight: bold;
+}
+.inputLine {
+  flex: 1;
+  padding: 10px;
+
+
+}
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row  wrap;
+}
